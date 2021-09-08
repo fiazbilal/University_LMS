@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_09_07_112403) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_09_07_112403) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -51,37 +54,31 @@ ActiveRecord::Schema.define(version: 2021_09_07_112403) do
     t.text "course_description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "course_id"
+    t.string "course_id"
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "User_id", null: false
-    t.integer "Course_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Course_id"], name: "index_favorites_on_Course_id"
-    t.index ["User_id"], name: "index_favorites_on_User_id"
+    t.index ["course_id"], name: "index_favorites_on_course_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-# Could not dump table "profiles" because of following StandardError
-#   Unknown type 'refrences' for column 'user'
+  create_table "profiles", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+  end
 
   create_table "registrations", force: :cascade do |t|
-    t.integer "User_id", null: false
-    t.integer "Course_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Course_id"], name: "index_registrations_on_Course_id"
-    t.index ["User_id"], name: "index_registrations_on_User_id"
-  end
-
-  create_table "user_courses", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "course_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["course_id"], name: "index_user_courses_on_course_id"
-    t.index ["user_id"], name: "index_user_courses_on_user_id"
+    t.index ["course_id"], name: "index_registrations_on_course_id"
+    t.index ["user_id"], name: "index_registrations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -95,17 +92,15 @@ ActiveRecord::Schema.define(version: 2021_09_07_112403) do
     t.string "first_name"
     t.string "last_name"
     t.date "dob"
-    t.integer "status", default: 0
+    t.integer "status"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "favorites", "Courses"
-  add_foreign_key "favorites", "Users"
-  add_foreign_key "registrations", "Courses"
-  add_foreign_key "registrations", "Users"
-  add_foreign_key "user_courses", "courses"
-  add_foreign_key "user_courses", "users"
+  add_foreign_key "favorites", "courses"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "registrations", "courses"
+  add_foreign_key "registrations", "users"
 end

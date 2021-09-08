@@ -1,5 +1,5 @@
 class AddCourseidToCourses < ActiveRecord::Migration[6.1]
   def change
-    add_column :courses, :course_id, :string, default "CS"
+    add_column :courses, :course_id, :string
   end
 end

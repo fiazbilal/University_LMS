@@ -1,5 +1,5 @@
 class AddIdToProfiles < ActiveRecord::Migration[6.1]
   def change
-    add_column :profiles, :user, :refrences
+    add_column :profiles, :user_id, :integer
   end
 end

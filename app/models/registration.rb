@@ -1,6 +1,6 @@
 class Registration < ApplicationRecord
-  belongs_to :User
-  belongs_to :Course
+  belongs_to :user
+  belongs_to :course
 
   has_one_attached :avatar
 end
