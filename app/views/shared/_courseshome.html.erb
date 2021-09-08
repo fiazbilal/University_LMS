@@ -1,0 +1,56 @@
+<!-- % @user = User.find(session[:id]) % -->
+<div class="container">
+  <center>
+    <h1>All Courses</h1>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Course ID</th>
+            <th>Title</th>
+            <th>Description  </th>
+            <th>Show</th>
+            <%if current_user.teacher? %>
+
+              <th>Edit</th>
+              <th>Delete</th>
+            <%end%>
+          </tr>
+          </thead>
+          <%if  !@courses.nil? %>
+          <tbody>
+          <% @courses.each do |course| %>
+              <tr>
+                <td><%= course.id %><br></td>
+                <td><%= course.course_title %><br></td>
+                <td><%= course.course_description %><br></td>
+                <td> 
+                <%= link_to 'Show', course_path(course), {class: 'btn btn-secondary'} %>
+                </td>
+                <%if current_user.teacher? %>
+                        <td> 
+                          <%= link_to 'Edit', edit_course_path(course), { class: 'btn btn-secondary'} %>
+                        </td>
+                        <td> 
+                          <%= link_to "Destroy", course_path(course),
+                          method: :delete,
+                          data: { confirm: "Are you sure?" }, 
+                          class: 'btn btn-secondary btn-block' %>
+                        </td>
+                <% end %>
+              </tr>
+          <% end %>
+          </tbody>
+          <%end %>
+        </table>
+
+
+<nav class="navbar navbar-default">
+  <div class="col-md-12 text-center" role="group" aria-label="...">
+        <% if current_user.teacher? %>
+            <%=link_to({ :controller => 'courses' , :action => 'new'}, {:class => 'btn btn-primary'}) do%>
+            <i>Add</i><%end%>
+        <% end %>
+  </div>
+</nav>
+</center>
+</div>

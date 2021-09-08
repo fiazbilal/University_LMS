@@ -1,0 +1,36 @@
+<div class="container">
+
+<center>
+<h1>Course Details  </h1>
+</center>
+<h4>Course:</h4> <%= @course.course_title %> <br/> <br/>
+
+<h5>Description:</h5>
+<%= @course.course_description %> <br/> <br/>
+
+
+<nav class="navbar navbar-default">
+  <div class="col-md-12 text-center" role="group" aria-label="...">
+  <% if current_user.teacher? %>
+        <%= link_to 'Edit', edit_course_path(@course), { class: 'btn btn-primary'} %>
+
+  <% else %>
+        <%  if !Registration.exists?(:user_id => current_user.id , :course_id => @course.id)%>
+            <%= link_to 'Register', registrations_path(User_id: current_user.id ,Course_id: @course.id), method: :post ,:class => 'btn btn-primary' %>
+        <% else %>
+            <%= link_to 'Drop', registration_path(User_id: current_user.id ,Course_id: @course.id), method: :delete,:class => 'btn btn-primary'  %>
+        <% end %> 
+  <% end %>
+   
+  <%  if !Favorite.exists?(:user_id => current_user.id , :course_id => @course.id)%>
+      <%= link_to 'Like', favorites_path(User_id: current_user.id ,Course_id: @course.id), method: :post ,:class => 'btn btn-primary' %>
+  <% else %>
+      <%= link_to 'Unlike', favorite_path(User_id: current_user.id ,Course_id: @course.id), method: :delete,:class => 'btn btn-primary'  %>
+  <% end %> 
+
+
+    <%=link_to({ :controller => 'courses' , :action => 'index'}, {:class => 'btn btn-primary'}) do%>
+            Back to Display All Courses<%end%>
+  </div>
+</nav>
+</div>

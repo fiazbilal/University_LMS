@@ -1,0 +1,32 @@
+<div class="container">   
+<% if !@assignment.errors.empty? %>   
+   <div>   
+         
+      <ul>   
+         <% @assignment.errors.full_messages.each do |msg| %>   
+            <li><%= msg %></li>   
+         <% end %>   
+<div class="container">   
+<% if !@assignment.errors.empty? %>   
+   <div>   
+         
+      <ul>   
+         <% @assignmnet.errors.full_messages.each do |msg| %>   
+            <li><%= msg %></li>   
+         <% end %>      </ul>   
+         
+   </div>   
+<% end %>   
+  
+<div>   
+   <%= form_for @assignmnet, html: { multipart: true } do |f| %>   
+      <%= f.label :name %>   
+      <%= f.text_field :name = current_user.first_name %>   
+      <br><br>   
+      <%= f.label :attachment %>   
+      <%= f.file_field :attachment %>   
+      <br>   
+      <%= f.submit "Save" %>   
+   <% end %>   
+</div>   
+</div>  

@@ -1,0 +1,34 @@
+<div>
+  <center>
+    <h1>Edit Course Details</h1>
+
+    <% @course = Course.find_by_id(params[:id])%>
+    <!-- % @user = User.find_by_id(session[:id])% -->
+    <%= form_for @course , url: {:controller => 'courses', :action =>'update' ,id: @course.id } do |f| %>
+
+
+        <div class="field">
+          <%= f.label :course_id %><br>
+          <%= f.text_field :course_id %>
+        </div>
+        <div class="field">
+          <%= f.label :course_title %><br>
+          <%= f.text_field :course_title %>
+        </div>
+        <div class="field">
+          <%= f.label :course_description %><br>
+          <%= f.text_area :course_description %>
+          <br>
+        </div>
+        <div class="actions">
+          <%= f.submit "Save Changes",class:"btn btn-primary"%>
+        </div>
+    <% end %>
+    </center>
+</div>
+<div>
+  <nav class="navbar navbar-default">
+    <%=link_to({:controller => 'courses' , :action => 'show',id: @course.id }, {:class => 'btn btn-primary '}) do%>
+        <i>Back</i><%end%>
+  </nav>
+</div>
