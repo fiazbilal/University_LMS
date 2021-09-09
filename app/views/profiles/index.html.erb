@@ -72,7 +72,7 @@
                     <div class="card-body">
                       <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Favorite</i>Courses</h6>
                       <% current_user.favorites.each do |course| %>       
-                        <% tempCourse = Course.find(course.Course_id) %>
+                        <% tempCourse = Course.find(course.course_id) %>
 
                         <small><%= link_to tempCourse.course_title, course_path(tempCourse.id) %></small><br/>
                       <% end %>

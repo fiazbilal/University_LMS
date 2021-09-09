@@ -1,10 +1,10 @@
 class User < ApplicationRecord
 
-  has_many :registrations
-  has_many :courses, :through => :registrations
+  has_many :registercourses
+  has_many :courses, :through => :registercourses, dependent: :delete_all
 
   has_many :favorites
-  has_many :courses, :through => :favorites
+  has_many :courses, :through => :favorites,dependent: :delete_all
 
   has_one_attached :avatar
   has_one  :profile

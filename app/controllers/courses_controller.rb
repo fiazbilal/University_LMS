@@ -45,11 +45,6 @@ class CoursesController < ApplicationController
       redirect_to(:controller => 'courses', :action => 'index')
     end
 
-
-    def error
-      redirect_to(:controller => 'courses', :action => 'error')
-    end
-
     private
     def course_params
       params.fetch(:course, {})
