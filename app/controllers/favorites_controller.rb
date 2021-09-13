@@ -3,7 +3,6 @@ class FavoritesController < ApplicationController
     def create
         @fav = Favorite.new(favorite_params)
         if @fav.save 
-
            redirect_to courses_path(params[:course_id]), alert: 'Added to favorites'
         else
             redirect_to courses_path(params[:course_id]), alert: 'Something went wrong'
@@ -19,7 +18,7 @@ class FavoritesController < ApplicationController
     
 
     private 
-    def favorite_params    
+    def favorite_params
         params.permit(:user_id, :course_id)
     end
 

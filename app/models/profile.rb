@@ -1,3 +1,3 @@
 class Profile < ApplicationRecord
-belongs_to :user, required: true, autosave: true
+belongs_to :user
 end

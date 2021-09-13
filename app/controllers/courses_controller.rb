@@ -12,7 +12,6 @@ class CoursesController < ApplicationController
   
     def new
       @course = Course.new
-      @inst = User.where("Teacher = ?", true)
     end
   
     def create
@@ -21,7 +20,7 @@ class CoursesController < ApplicationController
       if @course.save
         redirect_to(:controller => 'courses', :action => 'index')
       else
-        render "error"
+        redirect_to(:controller => 'courses', :action => 'show')
       end
     end
   
@@ -34,7 +33,7 @@ class CoursesController < ApplicationController
       if @course.update(course_params)
         redirect_to(:controller => 'courses', :action => 'index')
       else
-        redirect_to(:controller => 'courses', :action => 'index')
+        redirect_to(:controller => 'courses', :action => 'new')
       end
     end
   
@@ -47,7 +46,6 @@ class CoursesController < ApplicationController
 
     private
     def course_params
-      params.fetch(:course, {})
       params.require(:course).permit(:course_id, :course_title, :course_description)
     end
 end
