@@ -11,6 +11,9 @@ default: &default
 
 development:
   <<: *default
+  host: localhost
+  username: rootroot
+  password: root
   database: my_database_production
 
 # Warning: The database defined as "test" will be erased and
